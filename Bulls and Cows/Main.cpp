@@ -1,10 +1,18 @@
+/* This is the consule executable, that makes use of the BullCow class
+This acts as the view in a MVC pattern, and is responsible for all
+user interaction. For game logic see the FBullCowGame class.
+*/
+
 #include <iostream>
 #include <string>
 #include "FBullCowGame.h"
 
+using FText = std::string;
+using int32 = int;
+
 void PrintIntro();
 void PlayGame();
-std::string GetGuess();
+FText GetGuess();
 bool AskToPlayAgain();
 
 FBullCowGame BCGame;
@@ -23,7 +31,7 @@ int main()
 
 void PrintIntro()
 {
-	constexpr int WORD_LENGTH = 5;
+	constexpr int32 WORD_LENGTH = 5;
 	std::cout << "Welcom to Bulls and Cows.\n";
 	std::cout << "Can you guess the " << WORD_LENGTH << " letter isogram I'm thinking of?\n";
 	std::cout << std::endl;
@@ -32,19 +40,20 @@ void PrintIntro()
 
 void PlayGame()
 {
-	int MaxTries = BCGame.GetMaxTries();
-	for (int i = 0; i < MaxTries; i++)
+	BCGame.Reset();
+	int32 MaxTries = BCGame.GetMaxTries();
+	for (int32 i = 0; i < MaxTries; i++)
 	{
-		std::string Guess = GetGuess();
+		FText Guess = GetGuess();
 		std::cout << "Your guess was: " << Guess << std::endl;
 	}
 
 }
 
-std::string GetGuess()
+FText GetGuess()
 {
 	std::cout << "Try " << BCGame.GetCurrentTry() << ". Enter your guess: ";
-	std::string Guess = "";
+	FText Guess = "";
 	std::getline(std::cin, Guess);
 	return Guess;
 }
@@ -52,7 +61,7 @@ std::string GetGuess()
 bool AskToPlayAgain()
 {
 	std::cout << "Do you want to play again? ";
-	std::string Response = "";
+	FText Response = "";
 	std::getline(std::cin, Response);
 	return Response[0] == 'y' || Response[0] == 'Y';
 }
