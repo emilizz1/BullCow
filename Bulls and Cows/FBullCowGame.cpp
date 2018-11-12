@@ -23,9 +23,16 @@ bool FBullCowGame::IsGameWon() const
 	return false;
 }
 
-bool FBullCowGame::CheckGuessValidity (FString) const
+EGuessStatus FBullCowGame::CheckGuessValidity(FString Guess) const
 {
-	return ;
+	if (Guess.length != GetHiddenWordLengh())
+	{
+		return EGuessStatus::Wrong_Length;
+	}
+	else
+	{
+		return EGuessStatus::Ok;
+	}
 }
 
 // Recieves a VALID guess, incriments turn, return bulls and cows
